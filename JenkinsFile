@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Build Maven') {
             steps {
-                sh 'mvn clean compile test'
+                sh 'mvn clean compile test package'
             }
         }
         stage('Analyse avec SonarQube') {
