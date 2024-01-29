@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: https://github.com/mamanaby3/mavenProject_firstTestUsingSelenium.git
+            }
+        }
+        stage('Build Maven') {
+            steps {
+                sh 'mvn clean compile test'
+            }
+        }
+        stage('Analyse avec SonarQube') {
+            steps {
+                withSonarQubeEnv(installationName: 'sonarqube-8', credentialsId: 'SonarTokensOnJenkins') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
+ }
+ }
